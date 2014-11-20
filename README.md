@@ -1,0 +1,4 @@
+toDataURL
+=========
+
+HTMLCanvasElement.toDataURL support.
