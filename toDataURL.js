@@ -1,4 +1,4 @@
-// toDataURL
+// toDataURL support
 
 (function ()
 {
@@ -242,7 +242,5 @@
         HTMLCanvasElement.prototype.toDataURL   = toDataURL;
 
     }
-
-    var 1;
 
 }());
