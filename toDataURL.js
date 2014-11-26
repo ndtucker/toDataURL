@@ -6,12 +6,6 @@
 (function ()
 {
     /**
-     * Maximum value for an unsigned integer.
-     * @type {Number}
-     */
-    var UNSIGNED_INTEGER_MAX  = 0xffffffff;
-
-    /**
      * Maximum value of one byte.
      * @type {Number}
      */
@@ -138,9 +132,9 @@
 
         var a   = 1;
         var b   = 0;
+        var i;
 
-
-        for (var i = 0; i < length; i ++) {
+        for (i  = 0; i < length; i ++) {
 
             a   = (a + this[start + i]) % 65521;
             b   = (b + a)               % 65521;
@@ -171,9 +165,10 @@
 
 
         var c = 0xffffffff;
+        var i;
 
 
-        for (var i = 0; i < length; i ++) {
+        for (i = 0; i < length; i ++) {
 
             c = CRC_TABLE[(c ^ this[start + i]) & 0xff] ^ (c >>> 8);
 
@@ -186,10 +181,10 @@
 
     /**
      * Returns base64 encoded image.
-     * @param  {String} type
+     * //@param  {String} type// Not in use
      * @return {String}
      */
-    function toDataURL(type)
+    function toDataURL() // type
     {
         var context             = this.getContext("2d");
         var width               = this.width;
@@ -226,8 +221,10 @@
         // Reconstruct the ImageBuffer with the FILTER built in on each Scan line.
         // This could be accomplished with ImageBuffer.splice but this method is
         // slow for the amount of data there is.
+        var i;
 
-        for (var i = 0; i < ImageBuffer.length; i += RGBA_LENGTH) {
+
+        for (i  = 0; i < ImageBuffer.length; i += RGBA_LENGTH) {
             
             // Check if a new line should begin
             if (i % scanLineLength - FILTER.length === 0) {
@@ -268,14 +265,18 @@
         );
 
 
+        var blockLength;
+        var id;
+
+
         for (i = 0; i < blocks; i ++) {
             
-            var blockLength = Math.min(BLOCK_SIZE, ImageData.length - (i * BLOCK_SIZE));
-            var id          = ImageData.slice(i * BLOCK_SIZE, i * BLOCK_SIZE + blockLength);
+            blockLength = Math.min(BLOCK_SIZE, ImageData.length - (i * BLOCK_SIZE));
+            id          = ImageData.slice(i * BLOCK_SIZE, i * BLOCK_SIZE + blockLength);
 
 
             ImageStream.concat(
-                i == blocks - 1 ? 0x01 : 0x00,
+                i === blocks - 1 ? 0x01 : 0x00,
                 blockLength.bytes1sw(),
                 ~ blockLength.bytes,
                 blockLength.bytes16sw(),
@@ -311,7 +312,7 @@
     var response    = canvas.toDataURL("image/png");
 
 
-    if (response == "data:,") { // Does this browser not have toDataURL support?
+    if (response === "data:,") { // Does this browser not have toDataURL support?
 
         HTMLCanvasElement.prototype.toDataURL   = toDataURL;
 
