@@ -118,7 +118,7 @@
 
 
     /**
-     * [adler32 description]
+     * Checksum algorithm.
      * @param  {Number} start
      * @param  {Number} length
      * @return {Number}
