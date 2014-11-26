@@ -1,6 +1,7 @@
 /**
  * HTMLCanvasElement.toDataURL Support.
  * @author Nathan Tucker
+ * @version 1.0.0
  */
 (function ()
 {
